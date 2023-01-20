@@ -38,9 +38,9 @@ public class LoginController {
         ArrayList arrayList = (ArrayList)dbUerData;
         HashMap<String,Object> hashMap=(HashMap)arrayList.get(0);
         String privilege =  (String)hashMap.get("PRIVILEGES");
-        modelAndView.addObject("dbUerData", dbUerData);
-
+        
         if(arrayList.size()==0) {
+            modelAndView.addObject("isCorrect", "아이디 또는 비밀번호를 확인해주세요");
             modelAndView.setViewName("/login/logpage");
         } else {
             if(privilege.equals("ADMIN")) {

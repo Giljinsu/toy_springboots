@@ -43,9 +43,10 @@
               </div>
             </div>
             <div class="col" style="color : red;" id="errorLogin">
-            <c:if test="${dbUerData == null}">
+            <%-- <c:if test="${empty dbUerData}">
               아이디 또는 비밀번호를 확인해주세요.
-            </c:if>
+            </c:if> --%>
+            ${isCorrect}
             </div>
 
             <div class="col-12 d-flex justify-content-center mt-5">
