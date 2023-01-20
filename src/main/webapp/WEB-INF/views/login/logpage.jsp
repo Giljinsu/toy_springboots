@@ -43,7 +43,7 @@
               </div>
             </div>
             <div class="col" style="color : red;" id="errorLogin">
-            <c:if test="${empty dbUerData}">
+            <c:if test="${dbUerData == null}">
               아이디 또는 비밀번호를 확인해주세요.
             </c:if>
             </div>

@@ -100,6 +100,7 @@
             <span class="material-symbols-outlined me-2"> star </span>
             <span class="material-symbols-outlined"> favorite </span>
           </div>
+          <div>아이디 : jinsu01 비밀번호 : 1234</div>
         </div>
       </div>
     </footer>
