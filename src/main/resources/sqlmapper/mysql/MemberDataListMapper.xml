@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberList">
+<!-- call memberList.memberData -->
+    <select id="memberData" 
+        parameterType="Map" resultType="Map">
+        SELECT *
+        FROM USERS
+    </select>
+    
+ <!-- call memberList.memberDataOne -->
+    <select id="memberDataOne" 
+        parameterType="Map" resultType="Map">
+        SELECT *
+        FROM USERS
+        WHERE USER_ID = #{USER_ID}
+    </select>
+
+<!-- call memberList.deleteMember -->
+    <delete id="deleteMember" parameterType="Map">
+        DELETE FROM USERS
+        WHERE USER_ID = #{USER_ID}
+    </delete>
+
+    <!-- call memberList.updateMember -->
+    <update id="updateMember" parameterType="Map">
+        UPDATE USERS
+        SET USER_ID = #{USER_ID},
+            USER_PW = #{USER_PW},
+            USER_NAME = #{USER_NAME},
+            USER_SEX = #{USER_SEX},
+            AGE = #{AGE},
+            PHONENUMBER = #{PHONENUMBER},
+            EMAIL = #{EMAIL},
+            PRIVILEGES = #{PRIVILEGES} 
+        WHERE USER_ID = #{USER_ID}
+    </update>
+
+     <!-- call memberList.createMember -->
+    <insert id="createMember" 
+        parameterType="Map">
+        INSERT INTO USERS(USER_ID, USER_PW, USER_NAME, USER_SEX, AGE, PHONENUMBER, EMAIL, PRIVILEGES)
+        VALUES(#{USER_ID},#{USER_PW},#{USER_NAME},#{USER_SEX},#{AGE},#{PHONENUMBER},#{EMAIL},
+        <choose>
+            <when test="PRIVILEGES != null">
+                'ADMIN'
+            </when>
+            <otherwise>
+                'MEMBER'
+            </otherwise>
+        </choose>
+            )
+    </insert>
+</mapper>
