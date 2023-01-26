@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.study.toy_springboots.service.MemberService;
-import com.study.toy_springboots.utils.MakeUUID;
+import com.study.toy_springboots.utils.CommonUtils;
 
 @Controller
 @RequestMapping(value = "/memberlist")
@@ -28,7 +28,7 @@ public class MemberListController {
     MemberService memberService;
 
     @Autowired
-    MakeUUID makeUUID;
+    CommonUtils commonUtils;
 
     @RequestMapping(value = {"","/"})
     public Object memberlist(@RequestParam Map params,  ModelAndView modelAndView) {
@@ -89,41 +89,26 @@ public class MemberListController {
     @RequestMapping(value = "/insertMulti", method = RequestMethod.POST)
     public Object upload(MultipartHttpServletRequest multipartHttpServletRequest,
         @RequestParam Map params,  ModelAndView modelAndView) {
-
-        Iterator<String> fileNames = multipartHttpServletRequest.getFileNames();
-        String relativePath = "C:\\Develops\\toy_springboots\\src\\main\\resources\\static\\files\\";
-
-        String physicalFileName = makeUUID.makeUuid();
-        String saveFilePath = relativePath+physicalFileName+"\\";
-        File newfile = new File(saveFilePath);
-        newfile.mkdir();
         List fileList = new ArrayList<>();
-        Map attachfile = null;
-        while(fileNames.hasNext()) {
-            String fileName = fileNames.next();
-            MultipartFile multipartFile = multipartHttpServletRequest.getFile(fileName);
-            String originalFileName = multipartFile.getOriginalFilename();
-            String filePath = saveFilePath+originalFileName;
-            try {
-                multipartFile.transferTo(new File(filePath));
-                attachfile = new HashMap<>();
-                attachfile.put("ATTACHFILE_SEQ", makeUUID.makeUuid());
-                attachfile.put("SOURCE_UNIQUE_SEQ", params.get("USER_ID"));
-                attachfile.put("ORGINALFILE_NAME", originalFileName);
-                attachfile.put("PHYSICALFILE_NAME", physicalFileName);
-                attachfile.put("REGISTER_SEQ", params.get("USER_NAME"));
-                attachfile.put("MODIFIER_SEQ", params.get("USER_NAME"));
-                fileList.add(attachfile);
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        Map attachfile = new HashMap<>();
+
+        Map map = commonUtils.FileUpload(multipartHttpServletRequest);
+        String originalFileName = (String)map.get("originalFileName");
+        String physicalFileName = (String)map.get("physicalFileName");
+
+        attachfile.put("ATTACHFILE_SEQ", commonUtils.makeUuid());
+        attachfile.put("SOURCE_UNIQUE_SEQ", params.get("USER_ID"));
+        attachfile.put("ORGINALFILE_NAME", originalFileName);
+        attachfile.put("PHYSICALFILE_NAME", physicalFileName);
+        attachfile.put("REGISTER_SEQ", params.get("USER_NAME"));
+        attachfile.put("MODIFIER_SEQ", params.get("USER_NAME"));
+        fileList.add(attachfile);
+
         params.put("fileList", fileList);
         Object memberDatas = memberService.insertMultiAndGetList(params);        
         modelAndView.addObject("memberDatas", memberDatas);
         modelAndView.setViewName("/seeMemberList");
         return modelAndView;
     }
+
 }
