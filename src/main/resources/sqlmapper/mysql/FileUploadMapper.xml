@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FileUpload">
+    <!-- call Survey.getSurvey -->
+    <select id="getSurvey" 
+        parameterType="Map" resultType="Map">
+    </select>
+
+    <insert id="insertMulti" parameterType="Map" >
+        INSERT INTO ATTACHFILE
+        (ATTACHFILE_SEQ, SOURCE_UNIQUE_SEQ, ORGINALFILE_NAME, PHYSICALFILE_NAME, 
+        REGISTER_SEQ, REGISTRY_DATE, MODIFIER_SEQ, MODIFY_DATE)
+        values
+        <foreach collection="fileList" item="attachfile"
+            open="(" close=")" separator="),(">
+        #{attachfile.ATTACHFILE_SEQ},#{attachfile.SOURCE_UNIQUE_SEQ},#{attachfile.ORGINALFILE_NAME},#{attachfile.PHYSICALFILE_NAME}
+        ,#{attachfile.REGISTER_SEQ},SYSDATE(),#{attachfile.MODIFIER_SEQ},SYSDATE()
+        </foreach>
+        ;
+    </insert>
+</mapper>
+

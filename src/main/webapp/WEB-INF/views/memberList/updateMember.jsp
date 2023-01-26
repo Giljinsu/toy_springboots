@@ -23,7 +23,7 @@
     <main class="d-flex align-items-center" style="height: 40rem">
       <div class="container">
         <div>
-          
+          <form action="${data.USER_ID == null ? '/memberlist/insertMulti' : '/memberlist/edit'}" method="post" enctype="multipart/form-data">
           <table class="table table-striped">
             <thead>
               <tr  class="text-center bg-info bg-warning">
@@ -38,6 +38,7 @@
                 <th>전화번호</th>
                 <th>이메일</th>
                 <th>권한</th>
+                <th>사진</th>
                 <th></th>
               </tr>
             </thead>
@@ -46,7 +47,8 @@
                 <tr>
                     <%-- <c:forEach var="data" items="${memberDatas}" varStatus="status"> --%>
                     <c:set var="data" value="${memberDatas}"/>
-                  <form action="${data.USER_ID == null ? '/memberlist/save': '/memberlist/edit'}">
+                  <%-- <form action="${data.USER_ID == null ? '/memberlist/save': '/memberlist/edit'}"> --%>
+                  
                   <td>
                   <input type="text" name="USER_ID" value="${data.USER_ID}" 
                   ${ data.USER_ID == null ? '': 'readonly'} />
@@ -66,19 +68,25 @@
                   </div>
                   </td>
                   <td>
+                  <div class="form-group form-row" style="width:100px">
+                    <input type="file" name="userPic" class="form-control">
+                  </div>
+                  </td>
+                  <td>
                   <div style="width:100px;">
                     <button class="btn btn-warning" name="USER_ID" value="${data.USER_ID}">
                     ${data.USER_ID == null ? '생성': '수정'}
                     </button>
                   </div>
                   </td>
-                  <form>
+                  
                     <%-- </c:forEach> --%>
                 </tr>
 
               
             </tbody>
           </table>
+          </form>
         
         </div>
       </div>

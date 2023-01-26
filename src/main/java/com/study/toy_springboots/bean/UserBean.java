@@ -1,4 +1,4 @@
-package com.study.bean;
+package com.study.toy_springboots.bean;
 
 public class UserBean {
     private String userName;

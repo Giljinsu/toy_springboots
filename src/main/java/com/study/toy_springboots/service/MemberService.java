@@ -35,8 +35,17 @@ public class MemberService {
 
     public Object save(Object dataMap) {
         String sqlMapId = "memberList.createMember";
+        
         Object userData = memberDao.save(sqlMapId, dataMap);
         return userData;
+    }
+
+    public Object insertMultiAndGetList(Object dataMap) {
+        String sqlMapId = "FileUpload.insertMulti";
+        Object result = memberDao.save(sqlMapId, dataMap);
+        result = this.save(dataMap);
+        result = this.getMemberData(dataMap);
+        return result;
     }
 
     public Object deleteAndGetList(Object dataMap) {
