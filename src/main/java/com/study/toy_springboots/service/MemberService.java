@@ -83,7 +83,7 @@ public class MemberService {
         int currentPage = (int) ((Map<String, Object>) dataMap).get("currentPage");
         Paginations paginations = new Paginations(totalCount, currentPage);
         result.put("paginations",paginations);
-        ((Map<String, Object>) dataMap).put("pageBegin",paginations.getPageBegin());
+        ((Map<String, Object>) dataMap).put("pageBegin",paginations.getPageBegin()-1);
         ((Map<String, Object>) dataMap).put("pageScale",paginations.getPageScale());
         Object userData = this.getMemberData(dataMap);
         result.put("userData", userData);
