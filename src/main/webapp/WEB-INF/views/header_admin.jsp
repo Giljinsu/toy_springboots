@@ -29,7 +29,7 @@
               <div class="dropdown">
                 <a href="" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">회원관리</a>
                 <div class="dropdown-menu">
-                  <a href="/memberlist" class="dropdown-item">회원리스트</a>
+                  <a href="/memberlist/1" class="dropdown-item">회원리스트</a>
                 </div>
               </div>
               <div class="dropdown">

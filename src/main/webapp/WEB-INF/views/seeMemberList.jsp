@@ -20,10 +20,11 @@
 
   <body>
     <%@ include file="header_admin.jsp" %>
-    <main class="d-flex align-items-center" style="height: 40rem">
+    <main class="d-flex align-items-center" style="height: 50rem">
       <div class="container">
         <div>
-          
+          <c:set var="_pagination" value="${memberListDatas.paginations}" />
+          <span>총 갯수 : ${_pagination.totalCount}</span>
           <table class="table table-striped">
             <thead>
               <tr  class="text-center bg-info bg-warning">
@@ -43,8 +44,8 @@
               </tr>
             </thead>
             <tbody>
-          
-                <c:forEach var="data" items="${memberDatas}">
+
+                <c:forEach var="data" items="${memberListDatas.userData}">
                 <tr>
                   <td>${data.USER_ID}</td>
                   <td>${data.USER_PW}</td>
@@ -69,6 +70,24 @@
             </tbody>
 
           </table>
+          <nav aria-label="Page navigation example">	
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          <%-- for(int i=0 ; i<9; i++) --%>
+          <c:forEach var="i" begin="${_pagination.blockStart}" end="${_pagination.blockEnd}">
+            <li class="page-item"><a class="page-link" href="/memberlist/${i}">${i}</a></li>
+          </c:forEach>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
           <form action="/memberlist/create">
             <button class="btn btn-warning ">회원추가</button>
           </form>

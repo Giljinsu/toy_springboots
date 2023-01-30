@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,10 +31,12 @@ public class MemberListController {
     @Autowired
     CommonUtils commonUtils;
 
-    @RequestMapping(value = {"","/"})
-    public Object memberlist(@RequestParam Map params,  ModelAndView modelAndView) {
-        Object memberDatas = memberService.getMemberData(modelAndView);
-        modelAndView.addObject("memberDatas", memberDatas);
+    @RequestMapping(value = "/{currentPage}")
+    public Object memberlist(@RequestParam Map params,  @PathVariable int currentPage,
+            ModelAndView modelAndView) {
+        params.put("currentPage", currentPage);
+        Object memberListDatas = memberService.getMemberDataAndTotalCount(params);
+        modelAndView.addObject("memberListDatas", memberListDatas);
         modelAndView.setViewName("/seeMemberList");
         return modelAndView;
     }
@@ -110,5 +113,7 @@ public class MemberListController {
         modelAndView.setViewName("/seeMemberList");
         return modelAndView;
     }
+
+
 
 }

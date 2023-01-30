@@ -1,9 +1,13 @@
 package com.study.toy_springboots.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.study.toy_springboots.dao.MemberDao;
+import com.study.toy_springboots.utils.Paginations;
 
 @Service
 public class MemberService {
@@ -12,6 +16,12 @@ public class MemberService {
     public Object getMemberData(Object dataMap) {
         String sqlMapId = "memberList.memberData";
         Object userData = memberDao.getMembersData(sqlMapId, dataMap);
+        return userData;
+    }
+
+    public Object getTotalCount(Object dataMap) {
+        String sqlMapId = "memberList.totalCount";
+        Object userData = memberDao.getOneMembersData(sqlMapId, dataMap);
         return userData;
     }
 
@@ -63,6 +73,20 @@ public class MemberService {
     public Object saveAndGetList(Object dataMap) {
         Object result = this.save(dataMap);
         result = this.getMemberData(dataMap);
+        return result;
+    }
+
+    public Object getMemberDataAndTotalCount(Object dataMap) {
+        Map<String,Object> result = new HashMap<String,Object>();
+        int totalCount = (int) this.getTotalCount(dataMap);
+        // int currentPage = (int)(((Map<String, Object>) dataMap).get("currentPage"));
+        int currentPage = (int) ((Map<String, Object>) dataMap).get("currentPage");
+        Paginations paginations = new Paginations(totalCount, currentPage);
+        result.put("paginations",paginations);
+        ((Map<String, Object>) dataMap).put("pageBegin",paginations.getPageBegin());
+        ((Map<String, Object>) dataMap).put("pageScale",paginations.getPageScale());
+        Object userData = this.getMemberData(dataMap);
+        result.put("userData", userData);
         return result;
     }
 }
