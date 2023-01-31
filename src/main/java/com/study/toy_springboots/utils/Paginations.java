@@ -2,7 +2,7 @@ package com.study.toy_springboots.utils;
 
 public class Paginations {
     private int pageScale = 10; // 페이지당 게시물 수
-	private int blockScale = 5; // 블록당 페이지수
+	private int blockScale = 6; // 블록당 페이지수
 	private int currentPage; // 현재 페이지 번호
 	private int previousPage; // 이전 페이지
 	private int nextPage; // 다음 페이지
