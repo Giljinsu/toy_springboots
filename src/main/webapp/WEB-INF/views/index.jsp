@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -40,7 +41,17 @@
               </div>
             </div>
             <div class="navbar-nav">
-              <a href="/loginpage" class="nav-link">로그인/회원가입</a>
+              <%-- <a href="/loginpage" class="nav-link">로그인/회원가입</a> --%>
+                  <sec:authentication property="principal" var="userDetailsBean" />
+                  <%-- 로그인이 필요한 상태 --%>
+                  <sec:authorize access="isAnonymous()">
+                      <a href="/loginpage" class="nav-link">로그인/회원가입</a>
+                  </sec:authorize>
+                  <%-- 로그인이 된 상태 --%>
+                  <sec:authorize access="isAuthenticated()">
+                      <span>${userDetailsBean.memberName}님 </span>
+                      <a href="/logout" class="nav-link">로그아웃</a>
+                  </sec:authorize>
             </div>
           </div>
         </div>

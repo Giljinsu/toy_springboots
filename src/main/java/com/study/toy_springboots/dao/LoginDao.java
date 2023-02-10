@@ -17,7 +17,7 @@ public class LoginDao {
     }
 
     public Object getLogin(String sqlMapId, Object dataMap) {
-        Object userData = sessionTemplate.selectList(sqlMapId, dataMap);
+        Object userData = sessionTemplate.selectOne(sqlMapId, dataMap);
         return userData;
     }
 

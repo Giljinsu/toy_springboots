@@ -33,5 +33,15 @@
         </choose>
             )
     </insert>
+
+    <!-- DB toy_javawithdb 테이블 사용 위의 것들이랑 다름 -->
+    <select id="selectByUIDWithToyDB" parameterType="String"
+		resultType="Map">
+		SELECT * 
+		FROM MEMBER_WITH_AUTHORITY
+		where 1 = 1
+		<!-- 위에 넣는이유: 다음에 and 조건들이 들어가면서 보기 쉽게 함 -->
+		and MEMBER_ID = #{username} 
+	</select>
 </mapper>
 

@@ -18,11 +18,13 @@
   </head>
   <body>
     <%@ include file="../header_notlogin.jsp" %>
-    <form class="" onsubmit="return validateForm()" action="/login" method="post">
+    <% String result = (String)request.getAttribute("result");%>
+    <form class="" onsubmit="return validateForm()" action="/loginpage/login" method="post">
       <!-- 링크 추가 필요 지금은 현재페이지에서 값을 가지고 주소에 출력 -->
       <div class="container">
         <div class="text-center m-3">
           <div>
+            <span><img src="../docs/현대차량로고.png" width="100" alt="" /> </span>
             <span class="fs-2">로그인</span>
             <!-- 이미지 링크 수정해야 보임 -->
           </div>
@@ -31,13 +33,13 @@
           <div class="row mt-5">
             <div class="col-12 d-flex justify-content-center mb-2">
               <div>
-                <input type="text" id="id" class="form-control" name="username" placeholder="Id" />
+                <input type="text" id="id" class="form-control" name="USER_ID" placeholder="Id" />
               </div>
             </div>
 
             <div class="col-12 d-flex justify-content-center">
               <div>
-                <input type="password" id="password" class="form-control" name="password" placeholder="Password" />
+                <input type="password" id="password" class="form-control" name="USER_PW" placeholder="Password" />
               </div>
             </div>
             <div class="col" style="color : red;" id="errorLogin">

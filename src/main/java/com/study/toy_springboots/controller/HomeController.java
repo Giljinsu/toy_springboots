@@ -13,14 +13,16 @@ public class HomeController {
         // 여기서 principal은 userdetails다
         if (principal instanceof UserDetails) {
             //로그인이 되어있을때 UserDetails 
-            System.out.println(((UserDetails)principal).getUsername());
-            System.out.println(((UserDetails)principal).getAuthorities());
-            System.out.println(((UserDetails)principal).getPassword());
-            System.out.println(((UserDetails)principal).isAccountNonExpired());
-            System.out.println(((UserDetails)principal).isAccountNonLocked());
-            System.out.println(((UserDetails)principal).isCredentialsNonExpired());
-            System.out.println(((UserDetails)principal).isEnabled());
+            // System.out.println(((UserDetails)principal).getUsername());
+            // System.out.println(((UserDetails)principal).getAuthorities());
+            // System.out.println(((UserDetails)principal).getPassword());
+            // System.out.println(((UserDetails)principal).isAccountNonExpired());
+            // System.out.println(((UserDetails)principal).isAccountNonLocked());
+            // System.out.println(((UserDetails)principal).isCredentialsNonExpired());
+            // System.out.println(((UserDetails)principal).isEnabled());
+            
         } else {
+            // 로그인이 안되어있을때
             String username = principal.toString();
         }
         return "/index";

@@ -31,27 +31,27 @@ public class LoginController {
     }
 
     //로그인
-    @RequestMapping(value ={"/login"}, method= RequestMethod.POST)
-    public ModelAndView login(@RequestParam Map params,  ModelAndView modelAndView) {
-        Object dbUerData = loginService.getLogin(params);
-        // HashMap<String, Object> hashMap = (HashMap)dbUerData;
-        ArrayList arrayList = (ArrayList)dbUerData;
-        modelAndView.addObject("dbUerData", dbUerData);
+    // @RequestMapping(value ={"/login"}, method= RequestMethod.POST)
+    // public ModelAndView login(@RequestParam Map params,  ModelAndView modelAndView) {
+    //     Object dbUerData = loginService.getLogin(params);
+    //     // HashMap<String, Object> hashMap = (HashMap)dbUerData;
+    //     ArrayList arrayList = (ArrayList)dbUerData;
+    //     modelAndView.addObject("dbUerData", dbUerData);
         
-        if(arrayList.size()==0) {
-            modelAndView.addObject("isCorrect", "아이디 또는 비밀번호를 확인해주세요");
-            modelAndView.setViewName("/login/logpage");
-        } else {
-            HashMap<String,Object> hashMap=(HashMap)arrayList.get(0);
-            String privilege =  (String)hashMap.get("PRIVILEGES");
-            if(privilege.equals("ADMIN")) {
-                modelAndView.setViewName("/admin");
-            } else {
-                modelAndView.setViewName("/login/indexLogined");
-            }
-        }
-        return modelAndView;
-    }
+    //     if(arrayList.size()==0) {
+    //         modelAndView.addObject("isCorrect", "아이디 또는 비밀번호를 확인해주세요");
+    //         modelAndView.setViewName("/login/logpage");
+    //     } else {
+    //         HashMap<String,Object> hashMap=(HashMap)arrayList.get(0);
+    //         String privilege =  (String)hashMap.get("PRIVILEGES");
+    //         if(privilege.equals("ADMIN")) {
+    //             modelAndView.setViewName("/admin");
+    //         } else {
+    //             modelAndView.setViewName("/login/indexLogined");
+    //         }
+    //     }
+    //     return modelAndView;
+    // }
 
     //회원가입 페이지 이동
     @RequestMapping(value ={"/joinpage"})
